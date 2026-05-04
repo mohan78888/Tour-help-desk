@@ -9,7 +9,7 @@ const MOCK_OFFERS: Offer[] = [
     description: 'Get up to 25% off on domestic flights.',
     code: 'NY2024',
     color: 'bg-blue-600',
-    image: 'https://picsum.photos/seed/ny/300/200'
+    image: 'https://picsum.photos/seed/ny/300/200.webp'
   },
   {
     id: '2',
@@ -17,7 +17,7 @@ const MOCK_OFFERS: Offer[] = [
     description: 'Flat $5000 off on long-haul destinations.',
     code: 'INTLFLY',
     color: 'bg-indigo-600',
-    image: 'https://picsum.photos/seed/fly/300/200'
+    image: 'https://picsum.photos/seed/fly/300/200.webp'
   },
   {
     id: '3',
@@ -25,7 +25,7 @@ const MOCK_OFFERS: Offer[] = [
     description: '10% Cashback with Premium Credit Cards.',
     code: 'BANK10',
     color: 'bg-emerald-600',
-    image: 'https://picsum.photos/seed/bank/300/200'
+    image: 'https://picsum.photos/seed/bank/300/200.webp'
   }
 ];
 
@@ -54,7 +54,7 @@ const Offers: React.FC<OffersProps> = ({ onSeeAll }) => {
           {MOCK_OFFERS.map((offer) => (
             <div key={offer.id} className="group relative bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1">
               <div className="h-40 overflow-hidden relative">
-                <img src={offer.image} alt={offer.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img src={offer.image} alt={offer.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute top-4 left-4">
                    <div className={`px-3 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-widest ${offer.color} shadow-lg`}>
                     Flash Deal

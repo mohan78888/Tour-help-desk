@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Offers from './components/Offers';
@@ -7,19 +7,22 @@ import TrustBar from './components/TrustBar';
 import FlightResults from './components/FlightResults';
 import AIAssistant from './components/AIAssistant';
 import Footer from './components/Footer';
-import PromotionalPopup from './components/PromotionalPopup';
-import FlightDetails from './components/FlightDetails';
-import CustomerService from './components/CustomerService';
-import OffersPage from './components/OffersPage';
-import TermsPage from './components/TermsPage';
-import AboutPage from './components/AboutPage';
-import PrivacyPolicyPage from './components/PrivacyPolicyPage';
-import TermsOfUsePage from './components/TermsOfUsePage';
-import CreditCardVerificationPage from './components/CreditCardVerificationPage';
-import HotelsPage from './components/HotelsPage';
-import ContactUsPage from './components/ContactUsPage';
 import InternationalRoutes from './components/InternationalRoutes';
-import Login from './components/Login';
+import SkeletonLoader from './components/SkeletonLoader';
+
+const PromotionalPopup = React.lazy(() => import('./components/PromotionalPopup'));
+const FlightDetails = React.lazy(() => import('./components/FlightDetails'));
+const CustomerService = React.lazy(() => import('./components/CustomerService'));
+const OffersPage = React.lazy(() => import('./components/OffersPage'));
+const TermsPage = React.lazy(() => import('./components/TermsPage'));
+const AboutPage = React.lazy(() => import('./components/AboutPage'));
+const PrivacyPolicyPage = React.lazy(() => import('./components/PrivacyPolicyPage'));
+const TermsOfUsePage = React.lazy(() => import('./components/TermsOfUsePage'));
+const CreditCardVerificationPage = React.lazy(() => import('./components/CreditCardVerificationPage'));
+const HotelsPage = React.lazy(() => import('./components/HotelsPage'));
+const ContactUsPage = React.lazy(() => import('./components/ContactUsPage'));
+const Login = React.lazy(() => import('./components/Login'));
+const PromoLandingPage = React.lazy(() => import('./components/PromoLandingPage'));
 import { SearchParams, Flight } from './types';
 import { flightService } from './services/flightService';
 import { ClerkProvider } from '@clerk/clerk-react';
@@ -29,7 +32,7 @@ const App: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState<Flight[]>([]);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
-  const [view, setView] = useState<'home' | 'login' | 'details' | 'customer-service' | 'offers' | 'terms' | 'hotels' | 'about' | 'privacy' | 'termsOfUse' | 'creditCardVerification' | 'contact'>('home');
+  const [view, setView] = useState<'home' | 'promo' | 'login' | 'details' | 'customer-service' | 'offers' | 'terms' | 'hotels' | 'about' | 'privacy' | 'termsOfUse' | 'creditCardVerification' | 'contact'>('home');
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
   const [sortBy, setSortBy] = useState<'price' | 'fastest' | 'nonstop'>('price');
   const [showPromo, setShowPromo] = useState(false);
@@ -124,6 +127,8 @@ const App: React.FC = () => {
         passengers: 1,
         travelClass: 'Economy'
       });
+    } else if (path === '/cheap-flights' || path === '/special-offer') {
+      setView('promo');
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -174,7 +179,21 @@ const App: React.FC = () => {
   }, [searchResults]);
 
   return (
-<ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <Suspense fallback={<SkeletonLoader />}>
+      {view === 'promo' ? (
+        <PromoLandingPage 
+          onSearch={handleSearch} 
+          isLoading={isSearching} 
+          onLogoClick={handleLogoClick}
+          onLegalClick={() => setView('terms')} 
+          onAboutClick={() => setView('about')} 
+          onPrivacyClick={() => setView('privacy')}
+          onTermsClick={() => setView('termsOfUse')}
+          onCreditCardVerificationClick={() => setView('creditCardVerification')}
+          onContactClick={() => setView('contact')}
+        />
+      ) : (
       <div className="min-h-screen flex flex-col">
       <Navbar 
         onLoginClick={() => setView('login')} 
@@ -348,8 +367,9 @@ const App: React.FC = () => {
                       
                       <div className="md:w-1/2 relative">
                         <img 
-                          src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&q=80&w=800" 
+                          src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&q=80&w=800&fm=webp" 
                           alt="Canada Tourism" 
+                          loading="lazy"
                           className="rounded-[3rem] shadow-2xl relative z-10 w-full h-auto object-cover"
                         />
                         <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-purple-600/10 rounded-full blur-3xl z-0"></div>
@@ -375,6 +395,8 @@ const App: React.FC = () => {
         onContactClick={() => setView('contact')}
       />
     </div>
+    )}
+    </Suspense>
     </ClerkProvider>
   );
 };

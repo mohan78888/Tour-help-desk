@@ -72,7 +72,7 @@ const InternationalRoutes: React.FC<InternationalRoutesProps> = ({ onRouteClick 
               className="flex items-center gap-5 text-left group transition-all duration-300 hover:translate-x-1"
             >
               <div className="w-16 h-16 shrink-0 rounded-2xl overflow-hidden shadow-md group-hover:shadow-xl transition-all border border-slate-50">
-                <img src={route.image} alt={route.to} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img src={route.image} alt={route.to} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1 mb-1">

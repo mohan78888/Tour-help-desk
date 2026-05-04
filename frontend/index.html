@@ -41,10 +41,23 @@
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
       }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes showLoader {
+        to { opacity: 1; }
+      }
     </style>
 </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Inline Initial Loader delayed by 800ms to only show on slow networks (3G) -->
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; width: 100vw; background-color: #f9fafb; opacity: 0; animation: showLoader 0.5s ease forwards; animation-delay: 800ms;">
+        <div style="width: 50px; height: 50px; border: 4px solid #e2e8f0; border-top: 4px solid #9333ea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <p style="margin-top: 20px; color: #64748b; font-weight: 600;">Welcome to Tour Help Desk...</p>
+      </div>
+    </div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

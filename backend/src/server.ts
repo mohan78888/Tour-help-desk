@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import compression from 'compression';
 import { authMiddleware } from './middleware/auth.js';
 import { searchFlights, getFlightDetails, preCachePopularRoutes } from './controllers/flightController.js';
 import { chatWithAgent } from './controllers/aiController.js';
@@ -9,6 +10,17 @@ import { signup, login, getProfile } from './controllers/authController.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// ── Compression & Cache Headers ───────────────────────────────────────────────
+app.use(compression());
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // Add basic cache control for GET requests to static-like endpoints
+  if (req.method === 'GET' && !req.path.startsWith('/api/auth') && !req.path.startsWith('/api/user')) {
+    res.setHeader('Cache-Control', 'public, max-age=300'); // Cache for 5 mins
+  }
+  next();
+});
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
 const allowedOrigins: string[] = [
