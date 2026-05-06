@@ -47,25 +47,13 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, [searchResults, isSearching, view]);
 
-  // Auto-redirect to affiliate link when no flights are found
   useEffect(() => {
-    let redirectTimer: number;
     if (searchParams && searchResults.length === 0 && !isSearching) {
-      redirectTimer = window.setTimeout(() => {
-        const origin = searchParams.from?.substring(0, 3).toUpperCase() || '';
-        const destination = searchParams.to?.substring(0, 3).toUpperCase() || '';
-        const date = searchParams.date || '';
-        const returnDate = searchParams.returnDate || '';
-        
-        const affiliateBaseUrl = 'https://aviasales.tpm.li/eF9TEBP3';
-        const redirectUrl = `${affiliateBaseUrl}?origin=${origin}&destination=${destination}&date=${date}${returnDate ? '&return_date=' + returnDate : ''}`;
-        
-        window.location.href = redirectUrl;
-      }, 8000); // Redirect after 8 seconds
+      setTimeout(() => {
+        document.getElementById('no-flights-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
     }
-    return () => clearTimeout(redirectTimer);
-  }, [searchParams, searchResults.length, isSearching]);
-
+  }, [searchParams, searchResults, isSearching]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [view]);
@@ -245,11 +233,14 @@ const App: React.FC = () => {
             {searchParams && searchResults.length > 0 && !isSearching && (
               <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                  <div>
-                    <h2 className="text-2xl font-bold text-slate-800">
-                      Flights from {searchParams?.from} to {searchParams?.to}
+                  <div className="max-w-full md:max-w-2xl">
+                    <h2 className="text-lg md:text-xl font-black text-slate-800 leading-snug mb-1">
+                      <span className="text-slate-400 font-bold mr-2 uppercase text-[10px] md:text-xs tracking-widest hidden md:inline">Route</span> 
+                      <span className="text-blue-600">{searchParams?.from}</span> 
+                      <span className="text-slate-300 mx-2">→</span> 
+                      <span className="text-blue-600">{searchParams?.to}</span>
                     </h2>
-                    <p className="text-slate-500 text-sm mt-1">{searchResults.length} flights found • {searchParams?.date}</p>
+                    <p className="text-slate-500 text-xs md:text-sm font-semibold">{searchResults.length} premium flights found • <span className="text-slate-700">{searchParams?.date}</span></p>
                   </div>
                   
                   <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
@@ -279,7 +270,7 @@ const App: React.FC = () => {
             )}
 
             {searchParams && searchResults.length === 0 && !isSearching && (
-              <div className="max-w-[90%] md:max-w-2xl mx-auto px-2 sm:px-6 py-10 md:py-16">
+              <div id="no-flights-card" className="max-w-[90%] md:max-w-2xl mx-auto px-2 sm:px-6 py-10 md:py-16">
                 <div className="bg-white rounded-3xl p-6 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center text-center relative overflow-hidden">
                   {/* Decorative backgrounds */}
                   <div className="absolute top-[-10%] right-[-10%] w-40 h-40 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>

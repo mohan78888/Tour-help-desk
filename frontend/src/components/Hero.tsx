@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SearchParams } from '../types';
+import AirportAutocomplete from './AirportAutocomplete';
 
 interface HeroProps {
   onSearch: (params: SearchParams) => void;
@@ -92,65 +93,43 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading, title, subtitle, badge
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
               {/* From */}
               <div className="md:col-span-6 lg:col-span-2">
-                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 px-1">From</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-purple-600">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="from"
-                    placeholder="Departure City"
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold text-slate-900 placeholder:text-slate-300"
-                    required
-                  />
-                </div>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 px-1">From</label>
+                <AirportAutocomplete name="from" placeholder="Departure City" required={true} />
               </div>
 
               {/* To */}
               <div className="md:col-span-6 lg:col-span-2">
-                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 px-1">To</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-purple-600">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="to"
-                    placeholder="Arrival City"
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold text-slate-900 placeholder:text-slate-300"
-                    required
-                  />
-                </div>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 px-1">To</label>
+                <AirportAutocomplete name="to" placeholder="Arrival City" required={true} />
               </div>
 
               {/* Date */}
               <div className="md:col-span-6 lg:col-span-2">
-                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 px-1">Departure</label>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 px-1">Departure</label>
                 <input
                   type="date"
                   name="date"
-                  className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold text-slate-900"
+                  className="w-full px-5 py-4 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold text-slate-900"
                   required
                 />
               </div>
 
               {/* Return Date */}
               <div className="md:col-span-6 lg:col-span-2">
-                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 px-1">Return</label>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 px-1">Return</label>
                 <input
                   type="date"
                   name="returnDate"
-                  className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold text-slate-900"
+                  className="w-full px-5 py-4 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold text-slate-900"
                 />
               </div>
 
               {/* Passengers */}
               <div className="md:col-span-6 lg:col-span-2">
-                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 px-1">Travelers</label>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 px-1">Travelers</label>
                 <select
                   name="passengers"
-                  className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold appearance-none text-slate-900"
+                  className="w-full px-5 py-4 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all outline-none font-bold appearance-none text-slate-900"
                   defaultValue="1"
                 >
                   <option value="1">1 Adult</option>

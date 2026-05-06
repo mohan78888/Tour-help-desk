@@ -61,38 +61,39 @@ const PromotionalPopup: React.FC<PromotionalPopupProps> = ({ onClose, minPrice, 
         </button>
 
         <div className="flex flex-col h-full">
-          <div className="bg-blue-600 p-4 md:p-5 text-center relative overflow-hidden">
+          <div className="bg-blue-600 p-3 md:p-4 text-center relative overflow-hidden">
             <div className="absolute top-[-20%] right-[-10%] w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute bottom-[-10%] left-[-5%] w-24 h-24 bg-orange-500/20 rounded-full blur-2xl"></div>
             
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4 text-white animate-float">
-               <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-2 text-white animate-float">
+               <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
                </svg>
             </div>
             
-            <h2 className="text-white text-base md:text-lg font-black mb-2 leading-tight px-3 md:px-0">Unpublished Cheapest Flight Price Alert</h2>
-            <div className="inline-block px-2.5 py-1 md:px-3 md:py-1 bg-orange-500 rounded-full text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-lg">
+            <h2 className="text-white text-sm md:text-base font-black mb-1.5 leading-tight px-2 md:px-0">Unpublished Price Alert</h2>
+            <div className="inline-block px-2.5 py-1 bg-orange-500 rounded-full text-white text-[9px] font-black uppercase tracking-widest shadow-lg">
               Flash Deal Available
             </div>
           </div>
           
-          <div className="p-4 md:p-5 flex flex-col items-center">
-            <div className="text-center mb-4 md:mb-5">
-              <p className="text-slate-600 text-[11px] md:text-xs font-medium leading-relaxed max-w-[250px] md:max-w-sm mx-auto">
-                You searched for <span className="text-slate-800 font-black">{route || "Premium Flights"}</span>. 
-                You are currently viewing lowest online fare of <span className="text-blue-900 font-bold">${minPrice.toLocaleString()}</span>. 
-                We can offer this flight at an <span className="text-orange-600 font-bold underline decoration-2 underline-offset-4">even lower price</span> through offline booking support.
+          <div className="p-3 md:p-4 flex flex-col items-center">
+            <div className="text-center mb-3">
+              <p className="text-slate-800 text-[13px] md:text-sm font-semibold leading-snug mx-auto max-w-[260px] md:max-w-[300px]">
+                <span className="block mb-1">Route: <span className="font-black">{route || "Premium Flights"}</span></span>
+                Online Fare: <span className="text-slate-400 line-through font-bold">${minPrice.toLocaleString()}</span>
+                <span className="block mt-1.5 text-[14px] md:text-base font-black text-purple-600">21+ Unpublished Flights Available!</span>
+                <span className="block mt-1.5 font-black text-slate-900">Offline Offer: <span className="text-orange-600 text-lg md:text-xl underline decoration-2 underline-offset-4">${Math.floor(minPrice * 0.85).toLocaleString()}</span></span>
               </p>
             </div>
 
-            <div className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-3 md:p-4 flex flex-col items-center mb-4 md:mb-5 group hover:border-blue-200 transition-colors">
-              <span className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1 md:mb-2">Direct Booking Hotline</span>
-              <div className="flex items-center gap-2 md:gap-3">
-                 <div className="w-6 h-6 md:w-8 md:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center animate-pulse shrink-0">
-                   <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            <div className="w-full bg-slate-50 border border-slate-100 rounded-xl p-2.5 md:p-3 flex flex-col items-center mb-3 group hover:border-blue-200 transition-colors">
+              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Direct Booking Hotline</span>
+              <div className="flex items-center gap-2">
+                 <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center animate-pulse shrink-0">
+                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                  </div>
-                 <a href="tel:18887918007" className="text-lg sm:text-xl md:text-2xl font-black text-blue-900 hover:text-blue-600 transition-colors whitespace-nowrap">1888 791 8007</a>
+                 <a href="tel:18887918007" className="text-lg md:text-xl font-black text-blue-900 hover:text-blue-600 transition-colors whitespace-nowrap">1888 791 8007</a>
               </div>
             </div>
 
@@ -103,7 +104,7 @@ const PromotionalPopup: React.FC<PromotionalPopupProps> = ({ onClose, minPrice, 
               </button>
               <button 
                 onClick={() => setIsMinimized(true)}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs md:text-sm py-2.5 rounded-xl transition-all active:scale-95"
+                className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[10px] md:text-xs py-2 rounded-xl transition-all active:scale-95"
               >
                 No Thanks, Continue Online
               </button>
